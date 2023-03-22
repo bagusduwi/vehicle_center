@@ -148,7 +148,7 @@
         $('.approval').on('click', function() {
             const id = $(this).attr('id');
             console.log(id)
-            $.get("{{url('/booking')}}/" + id, function(m) {
+            $.get("{{url('/approval')}}/" + id, function(m) {
                 $('.approval_append').remove();
                 $.each(m, function(i, v) {
                     // console.log(v)
