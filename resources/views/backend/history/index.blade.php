@@ -132,7 +132,10 @@
         },
         "stripeClasses": [],
         "lengthMenu": [7, 10, 20, 50],
-        "pageLength": 10
+        "pageLength": 10,
+        "drawCallback": function(setting) {
+            loading_data();
+        }
     });
 
     $('.information').on('click', function() {
@@ -141,22 +144,33 @@
         $('.modal-text').text(text);
     })
 
-    $('.approval').on('click', function() {
-        const id = $(this).attr('id');
-        $.get("{{url('/history/information')}}/" + id, function(m) {
-            $('.approval_append').remove();
-            $.each(m, function(i, v) {
-                // console.log(v)
-                if (v.status == 0) {
-                    v.status = 'Not Yet Approved';
-                } else if (v.status == 1) {
-                    v.status = 'Approved';
-                } else {
-                    v.status = 'Rejected';
-                }
-                $('.approval_name').after(`<tr class="approval_append"><td>${v.name}</td><td>${v.position}</td><td>${v.status}</td></tr>`);
-            });
+    function loading_data() {
+        $('.information').on('click', function() {
+            const id = $(this).attr('id');
+            const text = $(`input[id=${id}]`).val();
+            $('.modal-text').text(text);
         })
-    })
+
+        $('.approval').on('click', function() {
+            const id = $(this).attr('id');
+            console.log(id)
+            $.get("{{url('/booking')}}/" + id, function(m) {
+                $('.approval_append').remove();
+                $.each(m, function(i, v) {
+                    // console.log(v)
+                    if (v.status == 0) {
+                        v.status = 'Not Yet Approved';
+                    } else if (v.status == 1) {
+                        v.status = 'Approved';
+                    } else {
+                        v.status = 'Rejected';
+                    }
+                    $('.approval_name').after(`<tr class="approval_append"><td>${v.name}</td><td>${v.position}</td><td>${v.status}</td></tr>`);
+                });
+            })
+        })
+    }
+
+    loading_data();
 </script>
 @endpush
