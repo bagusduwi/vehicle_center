@@ -1,5 +1,5 @@
 PHP version : PHP 7.4.29<br>
-Framework : Laravel<br>
+Framework : Laravel Framework 8.83.27<br>
 Database : MySQL<br>
 Apache : 2.4.53<br>
 MariaDB : 10.4.24<br>
